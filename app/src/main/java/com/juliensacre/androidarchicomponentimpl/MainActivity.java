@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.juliensacre.androidarchicomponentimpl.data.Note;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -36,8 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
         button.setOnClickListener(v -> {
             if(!editText.getText().toString().equals("")) {
-                Calendar calendar = Calendar.getInstance();
-                adapter.addItem(new Note(editText.getText().toString(), calendar.getTimeInMillis()));
+                adapter.addItem(new Note(editText.getText().toString(), Calendar.getInstance()));
                 editText.setText("");
             }else
                 Toast.makeText(this,"Empty text",Toast.LENGTH_SHORT).show();
@@ -46,9 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private List<Note> createNotes(){
         ArrayList<Note> notes = new ArrayList<>();
-        Calendar calendar = Calendar.getInstance();
-        for (int i=0; i<1000; i++){
-            notes.add(new Note("message create number: "+(i+1),calendar.getTimeInMillis()));
+        for (int i=1; i<=1000; i++){
+            notes.add(new Note("message create number: "+(i),Calendar.getInstance()));
         }
         return notes;
     }

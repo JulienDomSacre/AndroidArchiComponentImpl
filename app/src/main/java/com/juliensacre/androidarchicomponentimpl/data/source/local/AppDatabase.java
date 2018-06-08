@@ -1,10 +1,12 @@
-package com.juliensacre.androidarchicomponentimpl;
+package com.juliensacre.androidarchicomponentimpl.data.source.local;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.util.Log;
+
+import com.juliensacre.androidarchicomponentimpl.data.Note;
 
 @Database(entities = {Note.class}, version=1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {

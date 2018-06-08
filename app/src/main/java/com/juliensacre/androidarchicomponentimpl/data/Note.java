@@ -1,8 +1,11 @@
-package com.juliensacre.androidarchicomponentimpl;
+package com.juliensacre.androidarchicomponentimpl.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
+
+import com.juliensacre.androidarchicomponentimpl.DateConverter;
 
 import java.util.Calendar;
 
@@ -11,6 +14,7 @@ public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String message;
+    @TypeConverters(DateConverter.class)
     private Calendar createdAt;
 
     public String getMessage() {
@@ -35,5 +39,9 @@ public class Note {
 
     public Calendar getCreatedAt() {
         return createdAt;
+    }
+
+    public int getId() {
+        return id;
     }
 }
