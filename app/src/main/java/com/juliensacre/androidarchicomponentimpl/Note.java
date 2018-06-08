@@ -11,28 +11,29 @@ public class Note {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String message;
-    private long createdAt;
+    private Calendar createdAt;
 
     public String getMessage() {
         return message;
     }
 
-    public Note(String message, long createdAt) {
+    public Note(String message, Calendar createdAt) {
         this.message = message;
         this.createdAt = createdAt;
     }
 
     @Ignore
-    public Note(int id, String message, long createdAt) {
+    public Note(int id, String message, Calendar createdAt) {
         this.id = id;
         this.message = message;
         this.createdAt = createdAt;
     }
 
-    public String getCreatedAt() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(createdAt);
+    public String getCreatedAtInString() {
+        return createdAt.getTime().toString();
+    }
 
-        return calendar.getTime().toString();
+    public Calendar getCreatedAt() {
+        return createdAt;
     }
 }

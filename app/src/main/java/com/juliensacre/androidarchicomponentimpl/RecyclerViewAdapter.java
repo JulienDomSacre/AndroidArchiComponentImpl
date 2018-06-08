@@ -53,7 +53,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         public void setData(Note note) {
             message.setText(note.getMessage());
-            date.setText(note.getCreatedAt());
+            date.setText(note.getCreatedAtInString());
         }
     }
 }
