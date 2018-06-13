@@ -84,7 +84,7 @@ public class NoteRepository implements NoteDataSource{
 
             @Override
             public void onDataNotAvailable() {
-                //getNotesFromRemoteDataSource(callback);
+                callback.onDataNotAvailable();
             }
         });
     }

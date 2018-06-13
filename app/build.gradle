@@ -83,7 +83,7 @@ dependencies {
 
     //AndroidX version have compilation error, want SDK 28 (alpha now)
     implementation 'android.arch.persistence.room:runtime:1.1.0'
-    annotationProcessor "androidx.room:room-compiler:$room_version"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.0"
 
     // optional - RxJava support for Room
     implementation 'android.arch.persistence.room:rxjava2:1.1.0'

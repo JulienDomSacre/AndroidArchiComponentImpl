@@ -14,14 +14,16 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "notelist";
     private static AppDatabase sInstance;
 
+    public abstract NoteDao noteDao();
+
     public static AppDatabase getInstance(Context context){
-        if(sInstance == null){
-            synchronized (LOCK){
+        synchronized (LOCK){
+            if(sInstance == null){
                 Log.d(AppDatabase.class.getSimpleName(), "Create new db instance");
-                sInstance = Room.databaseBuilder(context,AppDatabase.class,DATABASE_NAME).build();
+                sInstance = Room.databaseBuilder(context.getApplicationContext(),AppDatabase.class,DATABASE_NAME).build();
             }
+            Log.d(AppDatabase.class.getSimpleName(), "Get the db instance");
+            return sInstance;
         }
-        Log.d(AppDatabase.class.getSimpleName(), "Get the db instance");
-        return sInstance;
     }
 }

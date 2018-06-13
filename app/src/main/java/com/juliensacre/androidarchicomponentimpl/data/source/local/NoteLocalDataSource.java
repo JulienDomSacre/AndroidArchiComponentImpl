@@ -25,11 +25,11 @@ public class NoteLocalDataSource implements NoteDataSource {
     }
 
     public static NoteLocalDataSource getInstance(@NonNull AppExecutors appExecutors,
-                                                   @NonNull NoteDao tasksDao) {
+                                                   @NonNull NoteDao noteDao) {
         if (INSTANCE == null) {
             synchronized (NoteLocalDataSource.class) {
                 if (INSTANCE == null) {
-                    INSTANCE = new NoteLocalDataSource(appExecutors, tasksDao);
+                    INSTANCE = new NoteLocalDataSource(appExecutors, noteDao);
                 }
             }
         }
@@ -54,16 +54,13 @@ public class NoteLocalDataSource implements NoteDataSource {
                 }
             });
         };
-
         mAppExecutors.diskIO().execute(runnable);
     }
 
     @Override
     public void saveNotes(@NonNull Note note) {
         checkNotNull(note);
-        Runnable saveRunnable = ()-> {
-            mNoteDao.insertNote(note);
-        };
+        Runnable saveRunnable = ()-> mNoteDao.insertNote(note);
         mAppExecutors.diskIO().execute(saveRunnable);
     }
 }
