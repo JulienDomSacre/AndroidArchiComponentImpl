@@ -5,7 +5,7 @@ import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 
-import com.juliensacre.androidarchicomponentimpl.DateConverter;
+import com.juliensacre.androidarchicomponentimpl.utils.DateConverter;
 
 import java.util.Calendar;
 

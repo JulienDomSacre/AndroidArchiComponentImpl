@@ -1,4 +1,4 @@
-package com.juliensacre.androidarchicomponentimpl;
+package com.juliensacre.androidarchicomponentimpl.utils;
 
 import android.arch.persistence.room.TypeConverter;
 

@@ -1,6 +1,7 @@
 package com.juliensacre.androidarchicomponentimpl.data.source.local;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.juliensacre.androidarchicomponentimpl.data.Note;
 import com.juliensacre.androidarchicomponentimpl.data.source.NoteDataSource;
@@ -42,6 +43,7 @@ public class NoteLocalDataSource implements NoteDataSource {
      */
     @Override
     public void getNotes(@NonNull LoadNotesCallback callback) {
+        Log.d(getClass().getSimpleName(), "get note from db");
         Runnable runnable = ()->{
             final List<Note> tasks = mNoteDao.getAll();
 

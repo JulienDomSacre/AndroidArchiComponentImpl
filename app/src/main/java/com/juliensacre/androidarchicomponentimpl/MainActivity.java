@@ -1,11 +1,12 @@
 package com.juliensacre.androidarchicomponentimpl;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Button;
-import android.widget.EditText;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.juliensacre.androidarchicomponentimpl.data.Note;
@@ -17,7 +18,6 @@ import com.juliensacre.androidarchicomponentimpl.data.source.web.NoteRemoteDataS
 import com.juliensacre.androidarchicomponentimpl.utils.AppExecutors;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
@@ -26,37 +26,34 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.button)
-    Button button;
-    @BindView(R.id.editText)
-    EditText editText;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
 
     private NoteRepository repository;
+    private RecyclerViewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.d(getClass().getSimpleName(), "onCreate main");
+
         ButterKnife.bind(this);
+
+        adapter = new RecyclerViewAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
 
         AppDatabase database = AppDatabase.getInstance(getApplicationContext());
         repository = NoteRepository.getInstance(NoteRemoteDataSource.getInstance(),
                 NoteLocalDataSource.getInstance(new AppExecutors(), database.noteDao()));
 
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getNotes());
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-
-        button.setOnClickListener(v -> {
-            if(!editText.getText().toString().equals("")) {
-                Note note = new Note(editText.getText().toString(), Calendar.getInstance());
-                repository.saveNotes(note);
-                adapter.addItem(note);
-                editText.setText("");
-            }else
-                Toast.makeText(this,"Empty text",Toast.LENGTH_SHORT).show();
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(MainActivity.this, AddNoteActivity.class);
+            startActivity(intent);
         });
+
     }
 
     private List<Note> getNotes(){
@@ -73,5 +70,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         return notes;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.setItem(getNotes());
     }
 }

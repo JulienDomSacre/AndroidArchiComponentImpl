@@ -17,8 +17,7 @@ import butterknife.ButterKnife;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>{
     private List<Note> notes;
 
-    public RecyclerViewAdapter(List<Note> notes) {
-        this.notes = notes;
+    public RecyclerViewAdapter() {
     }
 
     @NonNull
@@ -39,6 +38,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public void addItem (Note note){
         notes.add(note);
+        notifyDataSetChanged();
+    }
+
+    public void setItem(List<Note> notes) {
+        this.notes = notes;
         notifyDataSetChanged();
     }
 
